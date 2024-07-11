@@ -12,4 +12,5 @@ class NLPPipeline:
         tokens = self.tokenizer.tokenize(text)
         pos_tags = self.pos_tagger.tag(tokens)
         parse_tree = self.parser.parse(pos_tags)
+
         return tokens, pos_tags, parse_tree
