@@ -8,9 +8,15 @@ class NLPPipeline:
         self.pos_tagger = POSTagger()
         self.parser = DependencyParser()
 
-    def process(self, text):
+    def pos_tagging(self, text):
         tokens = self.tokenizer.tokenize(text)
         pos_tags = self.pos_tagger.tag(tokens)
-        # parse_tree = self.parser.parse(pos_tags)
 
         return pos_tags
+    
+    def construe(self, text):
+        tokens = self.tokenizer.tokenize(text)
+        pos_tags = self.pos_tagger.tag(tokens)
+        parse_tree = self.parser.parse(pos_tags)
+
+        return parse_tree

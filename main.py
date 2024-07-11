@@ -29,7 +29,7 @@ class NLPApplication:
     
     def nlp(self, text):
         pipeline = NLPPipeline()
-        pos_tags = pipeline.process(text)
+        pos_tags = pipeline.pos_tagging(text)
         return pos_tags
 
 def main():
