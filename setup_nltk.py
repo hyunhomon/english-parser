@@ -1,12 +1,13 @@
-import ssl
-import nltk
+import nltk, ssl
 
-ssl_context = ssl.create_default_context()
-nltk.set_proxy('http://localhost:8080')
+try:
+    _create_unverified_https_context = ssl._create_unverified_context
+except AttributeError:
+    pass
+else:
+    ssl._create_default_https_context = _create_unverified_https_context
 
 nltk.download('punkt', quiet=True)
 nltk.download('averaged_perceptron_tagger', quiet=True)
-nltk.download('maxent_ne_chunker', quiet=True)
-nltk.download('words', quiet=True)
 
 print(f"NLTK data is downloaded here: {nltk.data.path}")

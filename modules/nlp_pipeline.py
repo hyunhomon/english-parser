@@ -1,22 +1,25 @@
 from modules.tokenizer import Tokenizer
 from modules.pos_tagger import POSTagger
-from modules.dependency_parser import DependencyParser
+from modules.format_analyzer import FormatAnalyzer
 
 class NLPPipeline:
     def __init__(self):
         self.tokenizer = Tokenizer()
         self.pos_tagger = POSTagger()
-        self.parser = DependencyParser()
+        self.analyzer = FormatAnalyzer()
 
     def pos_tagging(self, text):
         tokens = self.tokenizer.tokenize(text)
         pos_tags = self.pos_tagger.tag(tokens)
 
-        return pos_tags
+        pos_tags_korean = [(word, self.pos_tagger.pos_tag_mapping.get(tag, tag)) for word, tag in pos_tags]
+        translated_tags = ' / '.join([f'{word}({tag})' for word, tag in pos_tags_korean])
+
+        return translated_tags
     
-    def construe(self, text):
+    def format_analysis(self, text):
         tokens = self.tokenizer.tokenize(text)
         pos_tags = self.pos_tagger.tag(tokens)
-        parse_tree = self.parser.parse(pos_tags)
+        format = self.analyzer.analysis(pos_tags)
 
-        return parse_tree
+        return format
