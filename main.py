@@ -5,7 +5,7 @@ class NLPApplication:
     def __init__(self, root):
         self.root = root
         self.root.title('english-parser')
-        self.root.geometry("600x400+100+100")
+        self.root.geometry("640x480+100+100")
         self.root.resizable(False, False)
 
         self.pipeline = NLPPipeline()
@@ -24,14 +24,18 @@ class NLPApplication:
         self.pos_tags_label.pack(padx=20, pady=20)
         self.formats_label = tk.Label(self.root, text='Formats will be displayed here.', wraplength=400, justify='left')
         self.formats_label.pack(padx=20, pady=20)
+        self.optimized_label = tk.Label(self.root, text='Optimized-Sentence will be displayed here.', wraplength=400, justify='left')
+        self.optimized_label.pack(padx=20, pady=20)
         
     def show_result(self, entry):
         text = entry.get()
         pos_tags = self.pipeline.pos_tagging(text) if text else 'Please enter some text.'
         format = self.pipeline.format_analysis(text) if text else 'Please enter some text.'
+        optimized = self.pipeline.sentence_optimize(text) if text else 'Please enter some text.'
 
         self.pos_tags_label.config(text=pos_tags)
         self.formats_label.config(text=format)
+        self.optimized_label.config(text=optimized)
 
 def main():
     root = tk.Tk()

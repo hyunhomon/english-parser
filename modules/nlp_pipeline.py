@@ -1,12 +1,11 @@
-from modules.tokenizer import Tokenizer
-from modules.pos_tagger import POSTagger
-from modules.format_analyzer import FormatAnalyzer
+import modules
 
 class NLPPipeline:
     def __init__(self):
-        self.tokenizer = Tokenizer()
-        self.pos_tagger = POSTagger()
-        self.analyzer = FormatAnalyzer()
+        self.tokenizer = modules.Tokenizer()
+        self.pos_tagger = modules.POSTagger()
+        self.analyzer = modules.FormatAnalyzer()
+        self.optimizer = modules.SentenceOptimizer()
 
     def pos_tagging(self, text):
         tokens = self.tokenizer.tokenize(text)
@@ -20,6 +19,12 @@ class NLPPipeline:
     def format_analysis(self, text):
         tokens = self.tokenizer.tokenize(text)
         pos_tags = self.pos_tagger.tag(tokens)
-        format = self.analyzer.analysis(pos_tags)
+        format = self.analyzer.analyze(pos_tags)
 
         return format
+    
+    def sentence_optimize(self, text):
+        tokens = self.tokenizer.tokenize(text)
+        optimized = self.optimizer.optimize(tokens)
+
+        return optimized

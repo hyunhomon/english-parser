@@ -9,5 +9,6 @@ else:
 
 nltk.download('punkt', quiet=True)
 nltk.download('averaged_perceptron_tagger', quiet=True)
+nltk.download('stopwords', quiet=True)
 
 print(f"NLTK data is downloaded here: {nltk.data.path}")
