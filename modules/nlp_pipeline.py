@@ -6,6 +6,7 @@ class NLPPipeline:
         self.pos_tagger = modules.POSTagger()
         self.analyzer = modules.FormatAnalyzer()
         self.optimizer = modules.SentenceOptimizer()
+        self.translator = modules.SentenceTranslator()
 
     def pos_tagging(self, text):
         tokens = self.tokenizer.tokenize(text)
@@ -28,3 +29,8 @@ class NLPPipeline:
         optimized = self.optimizer.optimize(tokens)
 
         return optimized
+    
+    def sentence_translate(self, text):
+        translated = self.translator.translate(text)
+        
+        return translated
