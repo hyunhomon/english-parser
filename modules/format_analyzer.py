@@ -1,7 +1,7 @@
 from nltk.tree import Tree
 from nltk.chunk import RegexpParser
 
-class FormatAnalyzer():
+class FormatAnalyzer:
     def __init__(self):
         grammar = r"""
             PP: {<TO><VB>}                                                # 전치사구: to 1개, 동사 원형 1개
@@ -13,6 +13,12 @@ class FormatAnalyzer():
         """
         self.parser = RegexpParser(grammar)
         self.be_verb_list = ['am', '\'m', 'is', '\'s', 'are', '\'re', 'was', 'were', 'be', 'been']
+        self.grammar_mapping = {
+            'NP': '명사구',
+            'VP': '동사구',
+            'PP': '전치사구',
+            'RC': '관계대명사절',
+        }
     
     def process_tree(self, tree):
         processed_tree = []
@@ -33,8 +39,11 @@ class FormatAnalyzer():
                             vp_leaves.pop(idx + 1)
                             break
                     subtree = Tree('VP', vp_leaves)
-                processed_tree.append(subtree)
-                if temp: processed_tree.append(Tree('NP', temp))
+                tag = subtree.label()
+                mapped_tag = self.grammar_mapping.get(tag, tag)
+                words = ' '.join(word for word, _ in subtree.leaves())
+                processed_tree.append(f'{mapped_tag}: {words}')
+                if temp: processed_tree.append(f'명사구: {temp}')
         
         return processed_tree
 

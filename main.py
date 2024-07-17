@@ -29,7 +29,10 @@ class NLPApplication:
         submit_button.pack(side=tk.LEFT, padx=12, pady=8)
 
     def load_photo(self):
-        pass
+        file_path = tk.filedialog.askopenfilename(filetypes=[("Image files", "*.png;*.jpg;*.jpeg;*.gif;*.bmp;*.tiff")])
+        recognized = self.pipeline.image_recognition(file_path)
+        self.entry.delete(0, tk.END)
+        self.entry.insert(0, recognized)
 
     def show_result(self):
         text = self.entry.get()

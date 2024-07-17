@@ -7,6 +7,7 @@ class NLPPipeline:
         self.analyzer = modules.FormatAnalyzer()
         self.optimizer = modules.SentenceOptimizer()
         self.translator = modules.SentenceTranslator()
+        self.recognizer = modules.ImageRecognizer()
 
     def pos_tagging(self, text):
         tokens = self.tokenizer.tokenize(text)
@@ -34,3 +35,8 @@ class NLPPipeline:
         translated = self.translator.translate(text)
         
         return translated
+    
+    def image_recognition(self, path):
+        recognized = self.recognizer.recognize(path)
+
+        return recognized
