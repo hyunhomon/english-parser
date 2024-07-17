@@ -14,7 +14,7 @@ class NLPPipeline:
         pos_tags = self.pos_tagger.tag(tokens)
 
         pos_tags_korean = [(word, self.pos_tagger.pos_tag_mapping.get(tag, tag)) for word, tag in pos_tags]
-        translated_tags = ' / '.join([f'{word}({tag})' for word, tag in pos_tags_korean])
+        translated_tags = ' '.join([f'{word}({tag})' for word, tag in pos_tags_korean])
 
         return translated_tags
     

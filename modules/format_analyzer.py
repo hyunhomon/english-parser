@@ -49,6 +49,6 @@ class FormatAnalyzer:
 
     def analyze(self, tagged_tokens):
         tree = self.process_tree(self.parser.parse(tagged_tokens))
-        result = '\n'.join([''.join(str(item)) for item in list(tree)])
+        result = '<br>'.join([''.join(str(item)) for item in list(tree)])
 
         return result
